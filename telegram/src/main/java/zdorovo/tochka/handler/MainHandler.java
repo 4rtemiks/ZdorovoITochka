@@ -105,7 +105,7 @@ public class MainHandler extends BaseHandler {
                 <b>Добро пожалоть в ZдороVо и точка</b>
                 Ваш текущий рост: %,.2f
                 Ваш текущий вес: %,.2f
-                """, member.getHeight(), member.getWeight());
+                """,    member.getHeight(), member.getWeight());
 
         EditMessageText em = new EditMessageText();
         em.setChatId(callbackQuery.getMessage().getChatId());
