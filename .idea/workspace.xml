@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a59d0128-f9f7-4a7b-9645-8405329fd86b" name="Changes" comment="test commit">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/zdorovo/tochka/constant/BaseEnum.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/zdorovo/tochka/convertor/OrdinalToEnumConverterFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/zdorovo/tochka/entity/Member.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/zdorovo/tochka/repository/MemberRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/core/src/main/java/zdorovo/tochka/service/MemberService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a59d0128-f9f7-4a7b-9645-8405329fd86b" name="Changes" comment="test commit" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -124,7 +116,7 @@
       <option name="presentableId" value="Default" />
       <updated>1701630141851</updated>
       <workItem from="1701630143080" duration="2394000" />
-      <workItem from="1701632552444" duration="1261000" />
+      <workItem from="1701632552444" duration="1533000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <option name="closed" value="true" />
