@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a59d0128-f9f7-4a7b-9645-8405329fd86b" name="Changes" comment="feat: add registration">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/core/pom.xml" afterDir="false" />
+    <list default="true" id="a59d0128-f9f7-4a7b-9645-8405329fd86b" name="Changes" comment="feat: can use sqlite">
       <change beforePath="$PROJECT_DIR$/telegram/src/main/resources/dev/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/telegram/src/main/resources/dev/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -132,7 +130,7 @@
       <workItem from="1701630143080" duration="2394000" />
       <workItem from="1701632552444" duration="1533000" />
       <workItem from="1701634100004" duration="5422000" />
-      <workItem from="1701639543368" duration="6352000" />
+      <workItem from="1701639543368" duration="6702000" />
     </task>
     <task id="LOCAL-00001" summary="init commit">
       <option name="closed" value="true" />
@@ -166,7 +164,15 @@
       <option name="project" value="LOCAL" />
       <updated>1701643887162</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: can use sqlite">
+      <option name="closed" value="true" />
+      <created>1701646689476</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1701646689476</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +206,7 @@
     <MESSAGE value="test commit" />
     <MESSAGE value="fix: vcs.xml" />
     <MESSAGE value="feat: add registration" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add registration" />
+    <MESSAGE value="feat: can use sqlite" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: can use sqlite" />
   </component>
 </project>

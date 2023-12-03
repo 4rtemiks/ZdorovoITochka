@@ -54,7 +54,7 @@ public class MainHandler extends BaseHandler {
 
         //Register member if not exits
         if (member == null) {
-            registrationHandler.handleMessage(message, us);
+            registrationHandler.handleMessage(message, member, us);
             return;
         }
         if (text != null && text.startsWith("/start")) {
@@ -63,7 +63,7 @@ public class MainHandler extends BaseHandler {
         }
 
         if (us.getBaseBlock() == BaseBlock.REGISTRATION)
-            registrationHandler.handleMessage(message, us);
+            registrationHandler.handleMessage(message, member, us);
     }
 
     public void handleCallback(CallbackQuery callbackQuery) {
@@ -83,7 +83,7 @@ public class MainHandler extends BaseHandler {
         if (data.equalsIgnoreCase(CallbackType.TO_MAIN_MENU))
             editBaseMenu(callbackQuery, member, us);
         else if (data.startsWith(CallbackType.REGISTER))
-            registrationHandler.handleCallback(callbackQuery, us);
+            registrationHandler.handleCallback(callbackQuery, member, us);
     }
 
     public void sendBaseMenu(Message message, Member member, UserState us) {

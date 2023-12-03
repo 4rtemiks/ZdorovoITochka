@@ -1,5 +1,6 @@
 package zdorovo.tochka.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,7 @@ import zdorovo.tochka.service.UserStateService;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Slf4j
 @Component
 public class RegistrationHandler extends BaseHandler {
 
@@ -29,7 +31,12 @@ public class RegistrationHandler extends BaseHandler {
     @Autowired
     private RegistrationKeyboard registrationKeyboard;
 
-    public void handleMessage(Message message, UserState userState) {
+    public void handleMessage(Message message, Member member, UserState userState) {
+        if (member == null) {
+            log.error("Trying register existing user");
+            return;
+        }
+
         String mes = message.getText();
         if (mes.startsWith("/start")) {
             sendGreetings(message, userState, null);
@@ -41,7 +48,12 @@ public class RegistrationHandler extends BaseHandler {
         } else if (userState.getStatus() == MenuStatus.WRITE_WEIGHT)
             saveWeight(message, userState);
     }
-    public void handleCallback(CallbackQuery callbackQuery, UserState userState) {
+    public void handleCallback(CallbackQuery callbackQuery, Member member, UserState userState) {
+        if (member == null) {
+            log.error("Trying register existing user");
+            return;
+        }
+
         String type = callbackQuery.getData();
 
         if (type.equals(CallbackType.REGISTER))
