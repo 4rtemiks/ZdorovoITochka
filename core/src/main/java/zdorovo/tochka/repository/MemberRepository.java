@@ -6,5 +6,6 @@ import zdorovo.tochka.entity.Member;
 public interface MemberRepository extends CrudRepository<Member, Long> {
 
     Member findByChatId(Long chatId);
+    Member findByUsername(String username);
 
 }

@@ -23,4 +23,8 @@ public class MemberService {
         return memberRepository.findByChatId(chatId);
     }
 
+    public Member findByUsername(String username) {
+        return memberRepository.findByUsername(username);
+    }
+
 }

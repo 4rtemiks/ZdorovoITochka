@@ -5,9 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import zdorovo.tochka.dto.BaseBlock;
-import zdorovo.tochka.dto.MenuStatus;
-import zdorovo.tochka.dto.SubBlock;
+import zdorovo.tochka.constant.BaseBlock;
+import zdorovo.tochka.constant.MenuStatus;
+import zdorovo.tochka.constant.SubBlock;
+
+import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -26,11 +28,16 @@ public class UserState {
 
     private Long createTime = System.currentTimeMillis();
 
-    @Enumerated(EnumType.ORDINAL)
-    private BaseBlock baseBlock;
-    @Enumerated(EnumType.ORDINAL)
-    private SubBlock subBlock;
-    @Enumerated(EnumType.ORDINAL)
-    private MenuStatus status;
+    private Integer messageId;
+    private String callbackData;
 
+    @Enumerated(EnumType.ORDINAL)
+    private BaseBlock baseBlock = BaseBlock.NONE;
+    @Enumerated(EnumType.ORDINAL)
+    private SubBlock subBlock = SubBlock.NONE;
+    @Enumerated(EnumType.ORDINAL)
+    private MenuStatus status = MenuStatus.NONE;
+
+    private BigDecimal height;
+    private BigDecimal weight;
 }
