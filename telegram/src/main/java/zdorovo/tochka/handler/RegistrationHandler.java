@@ -11,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import zdorovo.tochka.constant.BaseBlock;
 import zdorovo.tochka.constant.CallbackType;
 import zdorovo.tochka.constant.MenuStatus;
+import zdorovo.tochka.constant.SubBlock;
 import zdorovo.tochka.entity.Member;
 import zdorovo.tochka.entity.UserState;
 import zdorovo.tochka.keyboard.RegistrationKeyboard;
@@ -32,8 +33,8 @@ public class RegistrationHandler extends BaseHandler {
     private RegistrationKeyboard registrationKeyboard;
 
     public void handleMessage(Message message, Member member, UserState userState) {
-        if (member == null) {
-            log.error("Trying register existing user");
+        if (member != null) {
+            log.error("Trying register existing user = {}", member);
             return;
         }
 
@@ -49,8 +50,8 @@ public class RegistrationHandler extends BaseHandler {
             saveWeight(message, userState);
     }
     public void handleCallback(CallbackQuery callbackQuery, Member member, UserState userState) {
-        if (member == null) {
-            log.error("Trying register existing user");
+        if (member != null) {
+            log.error("Trying register existing user = {}", member);
             return;
         }
 
@@ -191,6 +192,11 @@ public class RegistrationHandler extends BaseHandler {
         member.setUsername(getUsername(callbackQuery));
         memberService.save(member);
 
+        userState.setStatus(MenuStatus.NONE);
+        userState.setBaseBlock(BaseBlock.NONE);
+        userState.setSubBlock(SubBlock.NONE);
+        userStateService.save(userState);
+
         EditMessageText em = new EditMessageText();
         em.setText("\uD83D\uDD25 Поздравляем! \uD83D\uDD25\nВы зарегистрировались!");
         em.setMessageId(callbackQuery.getMessage().getMessageId());
@@ -204,7 +210,7 @@ public class RegistrationHandler extends BaseHandler {
         String name = callbackQuery.getFrom().getUserName();
         String randomUsername = "id" + RandomStringUtils.randomNumeric(6);
         //Valid username
-        if(!(5 <= name.length() && name.length() <= 30)) {
+        if(name == null || !(5 <= name.length() && name.length() <= 30)) {
             return randomUsername;
         }
 

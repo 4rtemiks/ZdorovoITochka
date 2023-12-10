@@ -28,6 +28,8 @@ public class MainHandler extends BaseHandler {
 
     @Autowired
     private RegistrationHandler registrationHandler;
+    @Autowired
+    private DishHandler dishHandler;
 
     public void handleUpdate(Update update) {
        if (update.getMessage() != null)
@@ -84,6 +86,8 @@ public class MainHandler extends BaseHandler {
             editBaseMenu(callbackQuery, member, us);
         else if (data.startsWith(CallbackType.REGISTER))
             registrationHandler.handleCallback(callbackQuery, member, us);
+        else if (data.startsWith(CallbackType.DISH))
+            dishHandler.handleCallback(callbackQuery, member, us);
     }
 
     public void sendBaseMenu(Message message, Member member, UserState us) {
@@ -107,6 +111,12 @@ public class MainHandler extends BaseHandler {
                 Ваш текущий вес: %,.2f
                 """,    member.getHeight(), member.getWeight());
 
+        //Если есть фото, то удаляем  и шлем новое сообщение
+        if (callbackQuery.getMessage().getPhoto() != null) {
+            execute(DeleteMessage.builder().chatId(callbackQuery.getMessage().getChatId()).messageId(callbackQuery.getMessage().getMessageId()).build());
+            sendBaseMenu(callbackQuery.getMessage(), member, us);
+            return;
+        }
         EditMessageText em = new EditMessageText();
         em.setChatId(callbackQuery.getMessage().getChatId());
         em.setMessageId(callbackQuery.getMessage().getMessageId());
