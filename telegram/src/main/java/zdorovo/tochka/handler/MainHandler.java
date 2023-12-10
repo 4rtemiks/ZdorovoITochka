@@ -28,6 +28,8 @@ public class MainHandler extends BaseHandler {
 
     @Autowired
     private RegistrationHandler registrationHandler;
+    @Autowired
+    private DishHandler dishHandler;
 
     public void handleUpdate(Update update) {
        if (update.getMessage() != null)
@@ -54,7 +56,7 @@ public class MainHandler extends BaseHandler {
 
         //Register member if not exits
         if (member == null) {
-            registrationHandler.handleMessage(message, us);
+            registrationHandler.handleMessage(message, member, us);
             return;
         }
         if (text != null && text.startsWith("/start")) {
@@ -63,7 +65,7 @@ public class MainHandler extends BaseHandler {
         }
 
         if (us.getBaseBlock() == BaseBlock.REGISTRATION)
-            registrationHandler.handleMessage(message, us);
+            registrationHandler.handleMessage(message, member, us);
     }
 
     public void handleCallback(CallbackQuery callbackQuery) {
@@ -83,7 +85,9 @@ public class MainHandler extends BaseHandler {
         if (data.equalsIgnoreCase(CallbackType.TO_MAIN_MENU))
             editBaseMenu(callbackQuery, member, us);
         else if (data.startsWith(CallbackType.REGISTER))
-            registrationHandler.handleCallback(callbackQuery, us);
+            registrationHandler.handleCallback(callbackQuery, member, us);
+        else if (data.startsWith(CallbackType.DISH))
+            dishHandler.handleCallback(callbackQuery, member, us);
     }
 
     public void sendBaseMenu(Message message, Member member, UserState us) {
@@ -105,8 +109,14 @@ public class MainHandler extends BaseHandler {
                 <b>Добро пожалоть в ZдороVо и точка</b>
                 Ваш текущий рост: %,.2f
                 Ваш текущий вес: %,.2f
-                """, member.getHeight(), member.getWeight());
+                """,    member.getHeight(), member.getWeight());
 
+        //Если есть фото, то удаляем  и шлем новое сообщение
+        if (callbackQuery.getMessage().getPhoto() != null) {
+            execute(DeleteMessage.builder().chatId(callbackQuery.getMessage().getChatId()).messageId(callbackQuery.getMessage().getMessageId()).build());
+            sendBaseMenu(callbackQuery.getMessage(), member, us);
+            return;
+        }
         EditMessageText em = new EditMessageText();
         em.setChatId(callbackQuery.getMessage().getChatId());
         em.setMessageId(callbackQuery.getMessage().getMessageId());

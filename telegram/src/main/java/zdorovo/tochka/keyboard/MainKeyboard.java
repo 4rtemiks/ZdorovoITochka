@@ -14,17 +14,17 @@ public class MainKeyboard extends BaseKeyboard {
     public InlineKeyboardMarkup getBaseMenu() {
         InlineKeyboardButton calories = InlineKeyboardButton.builder()
                 .text("\uD83C\uDF4E Расчитать калории")
-                .callbackData(CallbackType.TO_MAIN_MENU)
+                .callbackData(CallbackType.COUNT_CALORIES)
                 .build();
 
         InlineKeyboardButton profile = InlineKeyboardButton.builder()
                 .text("⚙️ Настройки")
-                .callbackData(CallbackType.TO_MAIN_MENU)
+                .callbackData(CallbackType.SETTINGS)
                 .build();
 
         InlineKeyboardButton food = InlineKeyboardButton.builder()
                 .text("\uD83E\uDED3 Показать блюдо")
-                .callbackData(CallbackType.TO_MAIN_MENU)
+                .callbackData(CallbackType.DISH)
                 .build();
 
         return InlineKeyboardMarkup.builder()

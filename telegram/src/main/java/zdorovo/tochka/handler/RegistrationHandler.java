@@ -1,5 +1,6 @@
 package zdorovo.tochka.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import zdorovo.tochka.constant.BaseBlock;
 import zdorovo.tochka.constant.CallbackType;
 import zdorovo.tochka.constant.MenuStatus;
+import zdorovo.tochka.constant.SubBlock;
 import zdorovo.tochka.entity.Member;
 import zdorovo.tochka.entity.UserState;
 import zdorovo.tochka.keyboard.RegistrationKeyboard;
@@ -19,6 +21,7 @@ import zdorovo.tochka.service.UserStateService;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+@Slf4j
 @Component
 public class RegistrationHandler extends BaseHandler {
 
@@ -29,7 +32,12 @@ public class RegistrationHandler extends BaseHandler {
     @Autowired
     private RegistrationKeyboard registrationKeyboard;
 
-    public void handleMessage(Message message, UserState userState) {
+    public void handleMessage(Message message, Member member, UserState userState) {
+        if (member != null) {
+            log.error("Trying register existing user = {}", member);
+            return;
+        }
+
         String mes = message.getText();
         if (mes.startsWith("/start")) {
             sendGreetings(message, userState, null);
@@ -41,7 +49,12 @@ public class RegistrationHandler extends BaseHandler {
         } else if (userState.getStatus() == MenuStatus.WRITE_WEIGHT)
             saveWeight(message, userState);
     }
-    public void handleCallback(CallbackQuery callbackQuery, UserState userState) {
+    public void handleCallback(CallbackQuery callbackQuery, Member member, UserState userState) {
+        if (member != null) {
+            log.error("Trying register existing user = {}", member);
+            return;
+        }
+
         String type = callbackQuery.getData();
 
         if (type.equals(CallbackType.REGISTER))
@@ -179,6 +192,11 @@ public class RegistrationHandler extends BaseHandler {
         member.setUsername(getUsername(callbackQuery));
         memberService.save(member);
 
+        userState.setStatus(MenuStatus.NONE);
+        userState.setBaseBlock(BaseBlock.NONE);
+        userState.setSubBlock(SubBlock.NONE);
+        userStateService.save(userState);
+
         EditMessageText em = new EditMessageText();
         em.setText("\uD83D\uDD25 Поздравляем! \uD83D\uDD25\nВы зарегистрировались!");
         em.setMessageId(callbackQuery.getMessage().getMessageId());
@@ -192,7 +210,7 @@ public class RegistrationHandler extends BaseHandler {
         String name = callbackQuery.getFrom().getUserName();
         String randomUsername = "id" + RandomStringUtils.randomNumeric(6);
         //Valid username
-        if(!(5 <= name.length() && name.length() <= 30)) {
+        if(name == null || !(5 <= name.length() && name.length() <= 30)) {
             return randomUsername;
         }
 
